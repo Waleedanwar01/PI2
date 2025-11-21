@@ -1,0 +1,14 @@
+/* Admin-managed global style controls via CSS variables */
+:root{
+  --btn-radius: 8px;
+  --btn-border-width: 1px;
+  --btn-font-weight: inherit;
+  --btn-text-transform: none;
+  --heading-weight: inherit;
+  --link-underline: none;
+  --link-font-weight: inherit;
+}
+
+h1,h2,h3,h4,h5,h6{font-weight: var(--heading-weight);}
+a{ text-decoration: var(--link-underline); font-weight: var(--link-font-weight); }
+.btn{ border-radius: var(--btn-radius); border-width: var(--btn-border-width); font-weight: var(--btn-font-weight); text-transform: var(--btn-text-transform); }

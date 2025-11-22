@@ -1,15 +1,21 @@
+# Render.com Deployment Configuration
+# This file should be in the repository root (not backend folder)
+
 services:
   - type: web
-    name: pi2-backend
+    name: backend
     env: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate --noinput
-    startCommand: gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
-    autoDeploy: true
+    buildCommand: cd backend && pip install -r backend/requirements.txt
+    startCommand: cd backend && gunicorn backend.wsgi:application
+    plan: free
+    healthCheckPath: /
     envVars:
       - key: DJANGO_SECRET_KEY
-        generateValue: true
-      - key: DJANGO_ALLOWED_HOSTS
-        value: .onrender.com
+        value: "your-secret-key-here"
       - key: DATABASE_URL
-        value: "REPLACE_WITH_YOUR_POSTGRES_URL"
+        value: "postgresql://username:password@host:port/database"
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: "*.onrender.com,your-domain.com"
